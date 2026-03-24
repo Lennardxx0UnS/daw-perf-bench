@@ -16,18 +16,19 @@
 % --- Overleaf 专属字体调用：Agency FB ---
 \usepackage{fontspec}
 % 请严格确保下面括号里的文件名与你上传到 Overleaf 左侧的文件名大小写完全一致！
+% 假设你上传的文件名为 AGENCYR.TTF 和 AGENCYB.TTF
 \newfontfamily{\agencyfont}{AGENCYR.TTF}[
     BoldFont = AGENCYB.TTF
 ]
 
-% --- 页面边距与行距设置 ---
+% --- 页面边距与行距设置 (NVIDIA 白皮书风格：宽边距，大行距) ---
 \geometry{left=2.5cm, right=2.5cm, top=3cm, bottom=3.5cm}
 \renewcommand{\baselinestretch}{1.3} % 增加呼吸感行距
 
-% --- 全局字体设置：强制无衬线 ---
+% --- 全局字体设置：强制无衬线 (现代科技白皮书标配) ---
 \renewcommand{\familydefault}{\sfdefault}
 
-% --- 颜色与超链接设置 ---
+% --- 颜色与超链接设置 (采用沉稳的科技深色调) ---
 \definecolor{techdark}{RGB}{30, 30, 30}
 \definecolor{linkcolor}{RGB}{0, 102, 204}
 \hypersetup{
@@ -37,15 +38,16 @@
     citecolor=linkcolor,
 }
 
-% --- 章节标题样式重构 (强制分页) ---
+% --- 章节标题样式重构 (极简大厂风 & 强制分页) ---
+% 强制每个 \section 在新的一页开始，满足单页单大纲要求
 \newcommand{\sectionbreak}{\clearpage}
 
 \titleformat{\section}
-  {\LARGE\sffamily\bfseries\color{techdark}}
+  {\LARGE\sffamily\bfseries\color{techdark}} % 大号无衬线加粗深色
   {\thesection}
   {1em}
   {}
-  [\vspace{0.8ex}\titlerule]
+  [\vspace{0.8ex}\titlerule] % 标题下方加一条极简分割线
 
 \titleformat{\subsection}
   {\Large\sffamily\bfseries\color{techdark}}
@@ -53,7 +55,7 @@
   {1em}
   {}
 
-% --- 代码块样式设置 ---
+% --- 代码块样式设置 (等宽字体，去边框，极简灰底) ---
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
 \definecolor{codepurple}{rgb}{0.58,0,0.82}
@@ -66,7 +68,7 @@
     keywordstyle=\color{blue}\bfseries,
     numberstyle=\tiny\color{codegray},
     stringstyle=\color{codepurple},
-    basicstyle=\ttfamily\small,
+    basicstyle=\ttfamily\small, % 强制使用等宽字体以区分正文
     breakatwhitespace=false,         
     breaklines=true,                 
     captionpos=b,                    
@@ -77,18 +79,18 @@
     showstringspaces=false,
     showtabs=false,                  
     tabsize=4,
-    frame=none
+    frame=none % 去除代码块边框，融入背景色，更具现代感
 }
 
 \begin{document}
 
 % ==========================================
-% 独立封面设计 
+% 独立封面设计 (NVIDIA 极简白皮书风格 + Agency FB 专属 Logo)
 % ==========================================
 \begin{titlepage}
     \vspace*{3cm}
     \noindent
-    \rule{\textwidth}{2pt}
+    \rule{\textwidth}{2pt} % 顶部粗线条
     \vspace{1cm}
     
     \noindent
@@ -99,24 +101,26 @@
     
     \vspace{1.5cm}
     \noindent
-    {\Large\sffamily\bfseries \textcolor{gray}{版本 1.1 | 架构与算法白皮书}}\par
+    {\Large\sffamily\bfseries \textcolor{gray}{版本 1.0 | 架构与算法白皮书}}\par
     
     \vspace{1cm}
     \noindent
-    \rule{\textwidth}{0.5pt}
+    \rule{\textwidth}{0.5pt} % 中间细线条
     
     \vfill
     
     % --- 完美的从属关系署名排版 ---
     \noindent
+    % 1. 主项目名称 (应用 Agency FB 字体，最大字号，极客感拉满)
     {\fontsize{18pt}{22pt}\agencyfont\bfseries PROJECT {\sffamily ※} UNAMED \textbullet\ SPACE}\par
-    \vspace{0.15cm}
     
     \noindent
+    % 2. 分支名称 (加入视觉引导线凸显分支身份)
     {\large\sffamily \textcolor{gray}{\textbf{|}} \quad DAW Performance Research Initiative}\par
     \vspace{0.8cm}
     
     \noindent
+    % 3. 合作声明 (全分支通用，采用斜体增加高级感)
     {\large\sffamily \textit{co-designed with Google Gemini}}\par
     \vspace{0.3cm}
     % -------------------------------
@@ -127,14 +131,14 @@
 \end{titlepage}
 
 % ==========================================
-% 目录
+% 目录 (独占一页)
 % ==========================================
-\setcounter{page}{1}
+\setcounter{page}{1} % 正文页码从1开始
 \tableofcontents
 \clearpage
 
 % ==========================================
-% 正文部分
+% 正文部分 (每个 section 均会自动触发新一页)
 % ==========================================
 
 \section{基准测试算法原理与 DAW 映射分析}
@@ -180,24 +184,12 @@ $$S_{User} = (S_{Orch})^{w_a} \times (S_{Mix})^{w_b} \times (S_{Live})^{w_c}$$
 $$\text{s.t.} \quad w_a + w_b + w_c = 1.0$$
 该几何乘数效应能够完美放大系统的物理短板。例如，在日系摇滚 (J-Pop) 风格的工程中，用户可设定 $w_a=0.20, w_b=0.55, w_c=0.25$ 以精准反映重度单核 DSP 压力主导的工作流。
 
-\section{UX Fluidity Model: 动态阈值体验映射}
-在人机交互 (HCI) 与心理物理学中，人类对延迟与卡顿的感知并非线性的，而是符合韦伯-费希纳定律 (Weber-Fechner Law) 衍生出的感知阈值效应\cite{gescheider1997psychophysics}。
+\section{UX Fluidity Model: 用户体验流程度映射}
+在人机交互 (HCI) 与心理物理学中，人类对延迟与卡顿的感知并非线性的，而是符合韦伯-费希纳定律 (Weber-Fechner Law) 衍生出的感知阈值效应\cite{gescheider1997psychophysics}。算力的两倍提升，往往能将爆音概率从 5\% 降至 0\%，带来主观体验上的无限大提升。
 
-早期模型（v1.0）中，我们将 S 型曲线的及格线拐点固定为 $\beta = 1.5$。然而，不同编曲风格对单核与多核的物理及格线要求截然不同。如果简单套用静态拐点，会导致极端权重下产生“分数虚高”的逻辑漏洞。
-
-因此，本范式（v1.1）正式引入了\textbf{动态阈值拐点 (Dynamic Beta Mapping)} 机制。我们首先为三大场景设定符合物理现实的单项独立及格线（以 Apple M1 为 $1.0\times$ 基准）：
-\begin{itemize}
-    \item \textbf{多轨管弦及格线 ($\beta_{orch} = 1.4$)}：流畅运行大规模音源工程的基本多核/缓存吞吐门槛。
-    \item \textbf{单轨混音及格线 ($\beta_{mix} = 1.15$)}：挂载重度总线与多频段动态效果器不爆音的矢量算力门槛。
-    \item \textbf{低延迟实录及格线 ($\beta_{live} = 0.95$)}：保证极限低缓冲下音频调度与 MIDI 触发无延迟的响应门槛。
-\end{itemize}
-
-随后，我们应用柯布-道格拉斯几何加权，将这三个单项拐点融合成与当前用户工程权重完全匹配的动态及格线 $\beta_{dynamic}$：
-$$\beta_{dynamic} = (\beta_{orch})^{w_a} \times (\beta_{mix})^{w_b} \times (\beta_{live})^{w_c}$$
-
-为了将抽象的综合指数 $S_{User}$ 转化为直观的心理体验分（0-100 分），代入 S 型阈值函数 (Sigmoid Threshold Function)，并设定环境陡度系数 $k=3.5$：
-$$UX = \frac{100}{1 + e^{-k(S_{User} - \beta_{dynamic})}}$$
-根据此函数计算的 UX 评分，我们将编曲人的用户体验划分为四个阈值阶层：
+为了将抽象的综合指数 $S_{User}$ 转化为直观的心理体验分（0-100 分），本模型引入了基于逻辑斯谛分布的 S 型阈值函数 (Sigmoid Threshold Function)：
+$$UX = \frac{100}{1 + e^{-k(S_{User} - \beta)}}$$
+设定环境陡度系数 $k=3.5$，拐点 $\beta=1.5$。根据此函数计算的 UX 评分，我们将编曲人的用户体验划分为四个阈值阶层：
 \begin{itemize}
     \item \textbf{Tier 4 (UX 20-50, 挣扎求生期)}：频繁触发 CPU 爆音，极度依赖轨道冻结 (Freeze)。
     \item \textbf{Tier 3 (UX 50-80, 妥协平衡期)}：常规工程流畅，但无法承受总线级别的重度过采样。
@@ -206,9 +198,9 @@ $$UX = \frac{100}{1 + e^{-k(S_{User} - \beta_{dynamic})}}$$
 \end{itemize}
 
 \section{评估模型核心代码实现}
-以下为基于上述数理模型升级的 Python 代码实现 (v1.1)。排版采用等宽字体以确保代码的可读性与规范性。
+以下为基于上述数理模型的 Python 代码实现。排版采用等宽字体以确保代码的可读性与规范性。
 
-\begin{lstlisting}[caption={DAW Performance Evaluation Engine v1.1}]
+\begin{lstlisting}[caption={DAW Performance Evaluation Engine v1.0}]
 import math
 
 def calculate_daw_performance(cb_st, cb_mt, gb_comp, gb_photo, gb_blur, gb_text, l3_size_mb, mem_bw_gbps):
@@ -241,23 +233,16 @@ def calculate_daw_performance(cb_st, cb_mt, gb_comp, gb_photo, gb_blur, gb_text,
 
 def evaluate_user_experience(score_orch, score_mix, score_live, wa, wb, wc):
     """
-    执行柯布-道格拉斯非线性加权与动态 UX Sigmoid 流程度映射
+    执行柯布-道格拉斯非线性加权与 UX Sigmoid 流程度映射
     """
     if abs((wa + wb + wc) - 1.0) > 0.01:
         raise ValueError("Weights must sum to 1.0")
     
-    # 1. Cobb-Douglas 几何加权，模拟音频处理的"木桶效应"
+    # Cobb-Douglas 几何加权，模拟音频处理的"木桶效应"
     s_user = (score_orch ** wa) * (score_mix ** wb) * (score_live ** wc)
     
-    # 2. 动态 S 型曲线拐点校准 (Dynamic Beta)
-    beta_orch_base = 1.4   # 多轨及格线
-    beta_mix_base = 1.15   # 混音及格线
-    beta_live_base = 0.95  # 实录及格线
-    
-    beta_dynamic = (beta_orch_base ** wa) * (beta_mix_base ** wb) * (beta_live_base ** wc)
-    
-    # 3. 动态 UX Fluidity Sigmoid 映射 (k=3.5)
-    ux_score = 100 / (1 + math.exp(-3.5 * (s_user - beta_dynamic)))
+    # UX Fluidity Sigmoid 映射 (k=3.5, beta=1.5)
+    ux_score = 100 / (1 + math.exp(-3.5 * (s_user - 1.5)))
     
     return s_user, ux_score
 \end{lstlisting}
@@ -266,7 +251,7 @@ def evaluate_user_experience(score_orch, score_mix, score_live, wa, wb, wc):
 \begin{enumerate}
     \item \texttt{r\_gb\_blur} \textbf{的极高权重}：在 \texttt{score\_mix} 单轨混音的计算中，背景模糊的权重高达 0.5。这是因为单纯的整数跑分无法体现 CPU 在处理音频信号流时，因缺乏 AVX-512 等高级指令集而导致的效率断崖。
     \item \texttt{k\_cache} \textbf{的对数衰减}：严格遵循物理存储架构的边际收益递减规律，使用了底数为 2 的对数函数。这意味着从 16MB 升级到 32MB 获得的提升，在数学上显著大于从 128MB 堆叠到 144MB。
-    \item \textbf{动态拐点 (Dynamic Beta) 的自我适应性}：通过将单项物理及格线同样代入几何加权模型，代码使得最终的 50 分及格线会自动向用户侧重的曲风场景漂移。这在底层物理逻辑上彻底杜绝了“因 CPU 多核跑分极高，从而掩盖其单核 DSP 能力孱弱，最终导致评估分数虚高”的严重评价谬误。
+    \item \texttt{evaluate\_user\_experience} \textbf{函数的设计哲学}：严格执行非线性几何乘法，只要三大场景中出现任何一个严重短板（例如某 CPU 多核跑分惊人，但单核混音极弱），必然导致最终 \texttt{s\_user} 断崖式下跌，且经 Sigmoid 映射后，评分将直接跌入 Tier 4（挣扎求生期）。这从代码层面还原了“一轨爆音，全盘皆输”的行业痛点。
 \end{enumerate}
 
 % ==========================================
@@ -300,7 +285,7 @@ def evaluate_user_experience(score_orch, score_mix, score_live, wa, wb, wc):
 
 \begin{table}[htbp]
 \centering
-\sffamily 
+\sffamily % 确保表格内也是无衬线字体
 \resizebox{\textwidth}{!}{
 \begin{tabular}{lcccccccc}
 \toprule
@@ -324,7 +309,7 @@ AMD Ryzen 7 5800H & 16 & 51.2 & 310 & 2850 & 15256 & 2260 & 1745 & 2442 \\
 \end{table}
 
 % ==========================================
-% 参考文献
+% 参考文献 (独占一页)
 % ==========================================
 \clearpage
 \begin{thebibliography}{9}
